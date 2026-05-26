@@ -15,7 +15,7 @@ export const personal = {
   email: "ayushrivastava0018@gmail.com",
   phone: "+91-8931878476",
   linkedin: "https://linkedin.com/in/ayush-srivastava-b26a84280",
-  github: "https://github.com/",           // ← update with your GitHub URL
+  github: "https://github.com/ayush0068",           // ← update with your GitHub URL
   resumeLink: "",                           // ← add Google Drive link to your resume
   profileImage: "/images/ayush.png",
   suitImage: "/images/AYUSHIMG.png",
@@ -127,17 +127,17 @@ export const projects = [
   },
   {
     title: "UniCare+",
-    stack: "MERN Stack · WebRTC",
+    stack: "MERN Stack · ZegoCloud",
     duration: "January 2026 – Present",
     description:
-      "MERN-based doctor consultancy platform supporting real-time video & voice consultations via WebRTC, with secure appointment scheduling.",
+      "MERN-based doctor consultancy platform supporting real-time video & voice consultations via ZegoCloud, with secure appointment scheduling.",
     points: [
       "Digital prescription generation system for post-visit workflow",
       "JWT auth & role-based access for patients and doctors",
     ],
-    image: "/images/work_3_a_full.jpg", // ← replace with your project screenshot
-    liveUrl: "",
-    githubUrl: "",
+    image: "/images/UNICARE+.jpeg", // ← replace with your project screenshot
+    liveUrl: "https://uni-care-sigma.vercel.app/",
+    githubUrl: "https://github.com/ayush0068/UniCare.git",
     tags: ["MERN", "WebRTC", "Healthcare"],
   },
 ];
