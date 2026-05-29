@@ -26,7 +26,7 @@ export const education = [
     degree: "B.Tech in Computer Science & Engineering",
     institute: "United University",
     location: "Prayagraj, UP",
-    year: "2021 – 2025",
+    year: "2022 – 2026",
     score: "CGPA: 8.2",
   },
   {

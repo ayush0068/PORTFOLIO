@@ -10,19 +10,15 @@ const navLinks = [
 ];
 
 const LOGO_TEXTS = [
-  { pre: "Ayush ",       accent: "Srivastava" },
-  { pre: "Open To ",     accent: "Work" },
-  { pre: "Full Stack ",  accent: "Developer" },
+  { pre: "Ayush ",      accent: "Srivastava" },
+  { pre: "Open To ",    accent: "Work" },
+  { pre: "Full Stack ", accent: "Developer" },
 ];
 
 const SECTION_IDS = ["home", "about", "portfolio", "skills", "contact"];
 
-// ─── CV CONFIG ───────────────────────────────────────────────
-// Resume change karna ho to sirf yeh file replace karo:
-// /public/resume/Ayush_Srivastava_CV.pdf
 const CV_PATH     = "/resume/Ayush_Srivastava_CV.pdf";
 const CV_FILENAME = "Ayush_Srivastava_CV.pdf";
-// ─────────────────────────────────────────────────────────────
 
 function downloadCV() {
   const link = document.createElement("a");
@@ -62,15 +58,17 @@ export default function Navbar() {
   useEffect(() => {
     logoTimer.current = setInterval(() => {
       setLogoVisible(false);
-      setTimeout(() => { setLogoIdx(p => (p + 1) % LOGO_TEXTS.length); setLogoVisible(true); }, 350);
+      setTimeout(() => {
+        setLogoIdx(p => (p + 1) % LOGO_TEXTS.length);
+        setLogoVisible(true);
+      }, 350);
     }, 5000);
     return () => clearInterval(logoTimer.current);
   }, []);
 
   const handleNav = (href) => {
     setMenuOpen(false);
-    const id = href.replace("#", "");
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(href.replace("#", ""))?.scrollIntoView({ behavior: "smooth" });
   };
 
   const current = LOGO_TEXTS[logoIdx];
@@ -86,20 +84,40 @@ export default function Navbar() {
           0%   { clip-path: inset(0 0% 0 0);   opacity: 1; }
           100% { clip-path: inset(0 0 0 100%); opacity: 0; }
         }
-        .logo-text { display: inline-block; white-space: nowrap; }
+        .logo-text         { display: inline-block; white-space: nowrap; }
         .logo-text.visible { animation: clipReveal 0.45s cubic-bezier(0.77,0,0.18,1) forwards; }
         .logo-text.hidden  { animation: clipHide  0.3s  cubic-bezier(0.77,0,0.18,1) forwards; }
 
+        .nav-pill-wrapper {
+          transition: top 0.45s cubic-bezier(0.4,0,0.2,1), padding 0.45s cubic-bezier(0.4,0,0.2,1);
+        }
+        .nav-pill-bar {
+          transition: border-radius 0.45s cubic-bezier(0.4,0,0.2,1), background 0.45s cubic-bezier(0.4,0,0.2,1), box-shadow 0.45s cubic-bezier(0.4,0,0.2,1), padding 0.45s cubic-bezier(0.4,0,0.2,1), border-color 0.45s cubic-bezier(0.4,0,0.2,1), max-width 0.45s cubic-bezier(0.4,0,0.2,1);
+        }
+        .logo-pill {
+          transition: border-radius 0.45s cubic-bezier(0.4,0,0.2,1), background 0.45s cubic-bezier(0.4,0,0.2,1), padding 0.45s cubic-bezier(0.4,0,0.2,1), border-color 0.45s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        /* Mobile logo — center to left shift */
+        .mobile-logo {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          transition: left 0.45s cubic-bezier(0.4,0,0.2,1), transform 0.45s cubic-bezier(0.4,0,0.2,1);
+        }
+        .mobile-logo.scrolled {
+          left: 16px;
+          transform: translateX(0);
+        }
+
         @keyframes drawerIn  { from { transform: translateX(100%); } to { transform: translateX(0); } }
-        @keyframes drawerOut { from { transform: translateX(0); } to { transform: translateX(100%); } }
-        .drawer-open  { animation: drawerIn  0.4s  cubic-bezier(0.4,0,0.2,1) forwards; }
-        .drawer-close { animation: drawerOut 0.35s cubic-bezier(0.4,0,0.2,1) forwards; }
+        .drawer-open { animation: drawerIn 0.4s cubic-bezier(0.4,0,0.2,1) forwards; }
 
         @keyframes navItemIn {
-          from { opacity: 0; transform: translateX(24px); }
+          from { opacity: 0; transform: translateX(20px); }
           to   { opacity: 1; transform: translateX(0); }
         }
-        .nav-item-anim { opacity: 0; animation: navItemIn 0.4s ease forwards; }
+        .nav-item-anim { opacity: 0; animation: navItemIn 0.35s ease forwards; }
 
         @keyframes bounceIcon {
           0%, 100% { transform: translateY(0px); }
@@ -108,12 +126,28 @@ export default function Navbar() {
         .cv-bounce { animation: bounceIcon 1.2s ease-in-out infinite; display: inline-block; }
       `}</style>
 
-      {/* ── Desktop Navbar ── */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-black/80 backdrop-blur-md py-4 shadow-lg shadow-black/40" : "py-7 bg-transparent"
-      }`}>
-        <div className="max-w-7xl mx-auto px-8 flex items-center justify-between relative">
-          {/* Left links */}
+      {/* ── Navbar ── */}
+      <div
+        className="nav-pill-wrapper fixed z-50 left-0 right-0 flex justify-center pointer-events-none"
+        style={{
+          top: scrolled ? "14px" : "0px",
+          padding: scrolled ? "0 16px" : "0",
+        }}
+      >
+        <div
+          className="nav-pill-bar w-full pointer-events-auto flex items-center justify-between relative"
+          style={{
+            maxWidth: scrolled ? "820px" : "100%",
+            borderRadius: scrolled ? "9999px" : "0px",
+            background: scrolled ? "rgba(10,10,10,0.88)" : "transparent",
+            backdropFilter: scrolled ? "blur(16px)" : "none",
+            WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
+            border: scrolled ? "1px solid rgba(255,255,255,0.08)" : "1px solid transparent",
+            boxShadow: scrolled ? "0 4px 32px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(255,255,255,0.04)" : "none",
+            padding: scrolled ? "10px 20px" : "28px 32px",
+          }}
+        >
+          {/* Left nav — desktop */}
           <ul className="hidden lg:flex gap-1 items-center">
             {navLinks.slice(0, 2).map(l => (
               <li key={l.label}>
@@ -125,11 +159,20 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* Logo */}
-          <div className="absolute left-1/2 -translate-x-1/2">
-            <button onClick={() => handleNav("#home")}
-              className="font-heading text-2xl font-bold tracking-tight text-white overflow-hidden"
-              style={{ minWidth: "220px", textAlign: "center" }}>
+          {/* Desktop logo — centered absolute */}
+          <div className="absolute left-1/2 -translate-x-1/2 hidden lg:block">
+            <button
+              onClick={() => handleNav("#home")}
+              className="logo-pill font-heading text-xl font-bold tracking-tight text-white overflow-hidden"
+              style={{
+                minWidth: "200px",
+                textAlign: "center",
+                borderRadius: scrolled ? "9999px" : "4px",
+                background: scrolled ? "rgba(214,52,71,0.12)" : "transparent",
+                border: scrolled ? "1px solid rgba(214,52,71,0.25)" : "1px solid transparent",
+                padding: scrolled ? "6px 20px" : "4px 8px",
+              }}
+            >
               <span className={`logo-text ${logoVisible ? "visible" : "hidden"}`}>
                 <span className="text-white">{current.pre}</span>
                 <span style={{ color: "#D63447" }}>{current.accent}</span>
@@ -137,7 +180,24 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Right links */}
+          {/* Mobile logo — center when top, slides left on scroll */}
+          <button
+            onClick={() => handleNav("#home")}
+            className={`logo-pill lg:hidden font-heading text-lg font-bold tracking-tight text-white overflow-hidden mobile-logo ${scrolled ? "scrolled" : ""}`}
+            style={{
+              borderRadius: scrolled ? "9999px" : "4px",
+              background: scrolled ? "rgba(214,52,71,0.12)" : "transparent",
+              border: scrolled ? "1px solid rgba(214,52,71,0.25)" : "1px solid transparent",
+              padding: scrolled ? "5px 14px" : "2px 4px",
+            }}
+          >
+            <span className={`logo-text ${logoVisible ? "visible" : "hidden"}`}>
+              <span className="text-white">{current.pre}</span>
+              <span style={{ color: "#D63447" }}>{current.accent}</span>
+            </span>
+          </button>
+
+          {/* Right nav — desktop */}
           <ul className="hidden lg:flex gap-1 items-center ml-auto">
             {navLinks.slice(2).map(l => (
               <li key={l.label}>
@@ -149,7 +209,7 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* Hamburger */}
+          {/* Hamburger — mobile */}
           <button
             className="lg:hidden ml-auto flex flex-col gap-[5px] z-10 p-1"
             onClick={() => setMenuOpen(v => !v)}
@@ -160,14 +220,12 @@ export default function Navbar() {
             <span className={`block h-[1.5px] bg-white transition-all duration-300 ${menuOpen ? "w-6 -translate-y-[6.5px] -rotate-45" : "w-5"}`} />
           </button>
         </div>
-      </nav>
+      </div>
 
       {/* ── Mobile Overlay ── */}
       {menuOpen && (
-        <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 lg:hidden"
-          onClick={() => setMenuOpen(false)}
-        />
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setMenuOpen(false)} />
       )}
 
       {/* ── Mobile Drawer ── */}
@@ -176,10 +234,8 @@ export default function Navbar() {
           className="drawer-open fixed top-0 right-0 h-full w-[300px] z-50 lg:hidden flex flex-col"
           style={{ background: "#0f0f0f", borderLeft: "1px solid rgba(255,255,255,0.06)" }}
         >
-          {/* Red accent top bar */}
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-accent" />
 
-          {/* Header row */}
           <div className="flex items-center justify-between px-7 pt-8 pb-6 border-b border-white/5">
             <div>
               <p className="font-heading font-black text-white text-lg leading-tight">
@@ -187,15 +243,12 @@ export default function Navbar() {
               </p>
               <p className="text-white/30 text-[10px] uppercase tracking-widest font-body mt-0.5">Full Stack Developer</p>
             </div>
-            <button
-              onClick={() => setMenuOpen(false)}
-              className="w-8 h-8 border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-all"
-            >
+            <button onClick={() => setMenuOpen(false)}
+              className="w-8 h-8 border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-all">
               <i className="bi bi-x-lg text-sm" />
             </button>
           </div>
 
-          {/* Nav links */}
           <nav className="flex-1 px-7 py-8 overflow-y-auto">
             <p className="text-[9px] uppercase tracking-[0.3em] text-white/20 font-body mb-5">Navigation</p>
             <ul className="space-y-1">
@@ -203,14 +256,12 @@ export default function Navbar() {
                 const isActive = active === l.href.replace("#", "");
                 return (
                   <li key={l.label} className="nav-item-anim" style={{ animationDelay: `${i * 60}ms` }}>
-                    <button
-                      onClick={() => handleNav(l.href)}
+                    <button onClick={() => handleNav(l.href)}
                       className={`w-full flex items-center gap-4 px-4 py-3 text-left transition-all duration-200 group border ${
                         isActive
                           ? "border-accent/30 bg-accent/8 text-white"
                           : "border-transparent text-white/45 hover:text-white hover:bg-white/4 hover:border-white/8"
-                      }`}
-                    >
+                      }`}>
                       <span className={`w-7 h-7 flex items-center justify-center flex-shrink-0 transition-colors ${
                         isActive ? "text-accent" : "text-white/25 group-hover:text-white/60"
                       }`}>
@@ -224,13 +275,10 @@ export default function Navbar() {
               })}
             </ul>
 
-            {/* Resume download */}
             <div className="mt-8 pt-6 border-t border-white/5">
               <p className="text-[9px] uppercase tracking-[0.3em] text-white/20 font-body mb-4">Resume</p>
-              <button
-                onClick={() => { downloadCV(); setMenuOpen(false); }}
-                className="flex items-center gap-3 w-full px-4 py-3 bg-accent hover:bg-red-700 text-white transition-all duration-200 group"
-              >
+              <button onClick={() => { downloadCV(); setMenuOpen(false); }}
+                className="flex items-center gap-3 w-full px-4 py-3 bg-accent hover:bg-red-700 text-white transition-all duration-200">
                 <i className="bi bi-file-earmark-person text-base" />
                 <span className="font-body text-sm uppercase tracking-widest">Download CV</span>
                 <i className="bi bi-download ml-auto text-sm cv-bounce" />
@@ -238,33 +286,20 @@ export default function Navbar() {
             </div>
           </nav>
 
-          {/* Bottom — LinkedIn + GitHub only */}
           <div className="px-7 py-6 border-t border-white/5">
             <p className="text-[9px] uppercase tracking-[0.3em] text-white/20 font-body mb-4">Find me on</p>
             <div className="flex items-center gap-3">
-              {/* LinkedIn */}
-              <a
-                href={personal.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 flex-1 px-3 py-2.5 border border-white/8 text-white/40 hover:border-[#0077B5]/60 hover:text-[#0077B5] hover:bg-[#0077B5]/5 transition-all duration-200"
-              >
+              <a href={personal.linkedin} target="_blank" rel="noreferrer"
+                className="flex items-center gap-2 flex-1 px-3 py-2.5 border border-white/8 text-white/40 hover:border-[#0077B5]/60 hover:text-[#0077B5] hover:bg-[#0077B5]/5 transition-all duration-200">
                 <i className="bi bi-linkedin text-base" />
                 <span className="font-body text-xs uppercase tracking-widest">LinkedIn</span>
               </a>
-
-              {/* GitHub */}
-              <a
-                href={personal.github || "https://github.com"}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 flex-1 px-3 py-2.5 border border-white/8 text-white/40 hover:border-white/30 hover:text-white hover:bg-white/4 transition-all duration-200"
-              >
+              <a href={personal.github || "https://github.com"} target="_blank" rel="noreferrer"
+                className="flex items-center gap-2 flex-1 px-3 py-2.5 border border-white/8 text-white/40 hover:border-white/30 hover:text-white hover:bg-white/4 transition-all duration-200">
                 <i className="bi bi-github text-base" />
                 <span className="font-body text-xs uppercase tracking-widest">GitHub</span>
               </a>
             </div>
-
             <p className="text-white/12 text-[9px] font-body uppercase tracking-widest mt-5">
               © {new Date().getFullYear()} Ayush Srivastava
             </p>

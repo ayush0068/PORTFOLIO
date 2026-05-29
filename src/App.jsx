@@ -4,6 +4,7 @@ import About from "./components/About";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 // Placeholder sections so nav links don't break
 const PlaceholderSection = ({ id, label }) => (
@@ -26,6 +27,7 @@ export default function App() {
       <Projects />
       <Skills />
       <Contact />
+      <Footer />
     </div>
   );
 }
