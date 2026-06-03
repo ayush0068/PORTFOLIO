@@ -122,7 +122,7 @@ export const projects = [
   ],
   image: "/images/HelpLink.png", // replace with HelpLink screenshot
   liveUrl: "https://help-link-rapid.vercel.app/",
-  githubUrl: "https://github.com/ayush0068/UniCare.git",
+  githubUrl: "https://github.com/ayush0068/HELPLINK.git",
   tags: ["MERN", "Emergency", "Service Platform"],
 },
   {
