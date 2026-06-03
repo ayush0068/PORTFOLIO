@@ -111,24 +111,24 @@ export const projects = [
     tags: ["MERN", "E-commerce", "JWT"],
   },
   {
-    title: "Uni-Hotel",
-    stack: "MERN Stack",
-    duration: "October 2024 – March 2025",
-    description:
-      "Full-stack hotel discovery and booking platform with real-time availability search, secure reservation management, and JWT-authenticated user sessions.",
-    points: [
-      "Normalized MongoDB schema improving data retrieval speed",
-      "Backend on Render, frontend on Vercel",
-    ],
-    image: "/images/work_2_md.jpg",   // ← replace with your project screenshot
-    liveUrl: "",
-    githubUrl: "",
-    tags: ["MERN", "Booking", "Real-time"],
-  },
+  title: "HelpLink",
+  stack: "MERN Stack",
+  duration: "December 2026 – Feb 2026",
+  description:
+    "Full-stack platform connecting users with nearby service providers and emergency assistance, featuring real-time requests, secure communication, and JWT-authenticated user sessions.",
+  points: [
+    "Optimized MongoDB schema for faster data retrieval and scalability",
+    "Backend deployed on Render, frontend hosted on Vercel",
+  ],
+  image: "/images/HelpLink.png", // replace with HelpLink screenshot
+  liveUrl: "https://help-link-rapid.vercel.app/",
+  githubUrl: "https://github.com/ayush0068/UniCare.git",
+  tags: ["MERN", "Emergency", "Service Platform"],
+},
   {
     title: "UniCare+",
-    stack: "MERN Stack · ZegoCloud",
-    duration: "January 2026 – Present",
+    stack: "NEXT JS · Typescript",
+    duration: "January 2026 – April 2026",
     description:
       "MERN-based doctor consultancy platform supporting real-time video & voice consultations via ZegoCloud, with secure appointment scheduling.",
     points: [
