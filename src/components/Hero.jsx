@@ -7,8 +7,8 @@ export default function Hero() {
   // Jab bhi resume change karna ho:
   // 1. Naya PDF yahan rakh do: /public/resume/Ayush_Srivastava_CV.pdf
   // 2. Bas itna hi — koi aur change nahi chahiye!
-  const CV_PATH = "/resume/Ayush_Srivastava_CV.pdf";
-  const CV_FILENAME = "Ayush_Srivastava_CV.pdf";
+  const CV_PATH = "/resume/AYUSH-SRIVASTAVA.pdf";
+  const CV_FILENAME = "AYUSH-SRIVASTAVA-RESUME.pdf";
   // ─────────────────────────────────────────────────────────────
 
   const handleDownloadCV = () => {

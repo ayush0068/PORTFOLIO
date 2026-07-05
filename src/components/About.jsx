@@ -119,7 +119,7 @@ export default function About() {
             </div>
             {/* Floating badge */}
             <div className="absolute -bottom-6 -right-4 bg-accent text-white px-5 py-4 text-center shadow-2xl">
-              <p className="font-heading font-black text-3xl leading-none">8.2</p>
+              <p className="font-heading font-black text-3xl leading-none">8.4</p>
               <p className="text-[10px] uppercase tracking-widest mt-1 font-body opacity-90">CGPA</p>
             </div>
           </div>
